@@ -16,8 +16,13 @@ The case at the top of install.pp is misleading, while it changes the package ma
 
 ### Required modules
 puppet-selinux 1.6.1
+
 puppetlabs-firewall 1.15
+
 puppet-nginx 0.15.0
+
 puppet-cron 1.3.1
+
 puppet-letsencrypt 3.0.0
+
 stahnma-epel 1.3.1
