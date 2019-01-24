@@ -26,3 +26,6 @@ puppet-cron 1.3.1
 puppet-letsencrypt 3.0.0
 
 stahnma-epel 1.3.1
+
+### Changelog
+1/24/2019 - Nginx plugin was breaking the web server when the crontab would run. I thought the nginx plugin used the nginx systemd service, but rather it is a separe module installed exclusively for certbot that I did not install. Changing to default letsencrypt resolved the issue.
