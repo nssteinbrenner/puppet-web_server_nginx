@@ -115,7 +115,6 @@ class web_server::config {
 
   letsencrypt::certonly { $webserver_url:
     domains              => [$webserver_url],
-    plugin               => 'nginx',
     manage_cron          => true,
     cron_hour            => [0,12],
     cron_minute          => '30',
