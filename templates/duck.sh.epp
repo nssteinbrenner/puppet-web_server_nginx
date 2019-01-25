@@ -1,5 +1,4 @@
 <%- | $webserver_url,
       $dns_token,
 | -%>
-
 echo url="https://www.duckdns.org/update?domains=<%= $webserver_url %>&token=<%= $dns_token %>&ip=" | curl -k -o /duckdns/duck.log -K -

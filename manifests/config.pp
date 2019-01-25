@@ -17,9 +17,21 @@ class web_server::config {
     type => 'targeted',
   }
 
+  selinux::boolean { 'httpd_setrlimit':
+    ensure     => 'on',
+    persistent => true,
+  }
+
   user { $webserver_user:
     ensure => present,
     shell  => '/sbin/nologin',
+  }
+
+  file { '/var/www':
+    ensure => directory,
+    owner  => 'www-data',
+    group  => 'www-data',
+    mode   => '0444',
   }
 
   file { '/duckdns':
@@ -49,18 +61,29 @@ class web_server::config {
     content => epp('web_server/duck.sh.epp', $duckdns_hash),
   }
 
+  exec { '/duckdns/duck.sh':
+    require => File['/duckdns/duck.sh']
+  }
+
+  cron { 'refresh duckdns':
+    ensure  => present,
+    command => '/duckdns/duck.sh',
+    minute  => '*/5',
+    user    => 'root',
+  }
+
   file { $webserver_root:
     ensure => directory,
     owner  => $webserver_user,
     group  => $webserver_user,
-    mode   => '0444',
+    mode   => '0555',
   }
 
   file { "${webserver_root}/index.html":
     ensure => file,
     owner  => $webserver_user,
     group  => $webserver_user,
-    mode   => '0444',
+    mode   => '0555',
     source => 'puppet:///modules/web_server/index.html',
   }
 
@@ -68,13 +91,6 @@ class web_server::config {
     ensure   => present,
     seltype  => 'httpd_sys_content_t',
     pathspec => "${webserver_root}(/.*)?",
-  }
-
-  cron::job { 'duckdns':
-    ensure      => present,
-    minute      => '*/5',
-    user        => 'root',
-    description => "Refresh dynamic DNS for ${webserver_url}",
   }
 
   Firewall {
@@ -115,13 +131,17 @@ class web_server::config {
 
   letsencrypt::certonly { $webserver_url:
     domains              => [$webserver_url],
+    plugin               => 'standalone',
     manage_cron          => true,
     cron_hour            => [0,12],
     cron_minute          => '30',
     cron_before_command  => '/bin/systemctl stop nginx',
     cron_success_command => '/bin/systemctl start nginx',
     suppress_cron_output => true,
-    before               => Service['nginx'],
+  }
+
+  exec { "/opt/puppetlabs/puppet/cache/letsencrypt/renew-${webserver_url}.sh":
+    notify => Service['nginx'],
   }
 
   nginx::resource::server { $webserver_url:

@@ -11,6 +11,16 @@ class web_server::install {
     provider => $package_manager,
   }
 
+  package { 'mlocate':
+    ensure   => present,
+    provider => $package_manager,
+  }
+
+  package { 'vim':
+    ensure   => present,
+    provider => $package_manager,
+  }
+
   package { 'iptables-services':
     ensure   => present,
     provider => $package_manager,
@@ -21,11 +31,14 @@ class web_server::install {
     provider => $package_manager,
   }
 
+  package { 'psmisc':
+    ensure   => present,
+    provider => $package_manager,
+  }
+
   class { 'nginx':
     manage_repo    => true,
     package_source => 'nginx-mainline',
   }
-
-  include web_server::config
 
 }
