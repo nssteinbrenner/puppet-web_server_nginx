@@ -1,8 +1,23 @@
 # puppet-web_server_nginx
 
+Written for Puppet 6.1.0
+
 Configures a (very) basic nginx web server with SELinux enabled that displays "Hello World!".
 
 Some things have been removed before uploading, such as my e-mail address.
+
+### Required modules
+puppet-selinux 1.6.1
+
+puppetlabs-firewall 1.15
+
+puppet-nginx 0.15.0
+
+puppet-cron 1.3.1
+
+puppet-letsencrypt 3.0.0
+
+stahnma-epel 1.3.1
 
 ### Usage
 
@@ -53,19 +68,6 @@ SeLinux context for www root directory.
 
 ### To Do 
 The case at the top of install.pp is misleading, while it changes the package manager, I did not prepare this with Debian/Ubuntu in mind at all, and it does not work with apt-get distros. Need to look more into Debian/Ubuntu to see the differences between them and a yum/rpm based distro in terms of package names and configuration.
-
-### Required modules
-puppet-selinux 1.6.1
-
-puppetlabs-firewall 1.15
-
-puppet-nginx 0.15.0
-
-puppet-cron 1.3.1
-
-puppet-letsencrypt 3.0.0
-
-stahnma-epel 1.3.1
 
 ### Changelog
 1/25/2019 - Testing was done on a server that had been modified prior and was not a minimal install, and when this was tested on a minimal install it was non-functional. The following changes were made to add functionality for a minimal Centos 7.5 install, additionally there are some general bug fixes:
