@@ -18,7 +18,7 @@ You are required to replace the e-mail address (in the letsencrypt class block),
  2. Select "linux cron" if it is not already selected.
  3. Underneath "first step - choose a domain.", click on the drop down box and select the domain from earlier.
  4. There will be blocks with commands inside, look for the block that starts with 'echo url="https://www.duckdns.org"'
- 5. In that block, look for "&token". The $dns_token will be the characters between "&token" and "&ip="
+ 5. In that block, look for "&token". The $dns_token will be the characters between "&token=" and "&ip="
  
  #### Replacing $dns_token, $webserver_url, and the email in config.pp
 1. Open config.pp in your editor of choice and replace 'sparkswebserver.duckdns.org' with 'yourdomain.duckdns.org' (depending on what domain you have).
