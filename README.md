@@ -35,7 +35,7 @@ stahnma-epel 1.3.1
 1/25/2019 - Testing was done on a server that had been modified prior and was not a minimal install, and when this was tested on a minimal install it was non-functional. The following changes were made to add functionaly for a minimal Centos 7.5 install, additionally there are some general bug fixes:
 
     - (Quality of Life) Install mlocate, vim, and psmisc.
-    - Create /var/www (previous server had apache installed, which automatically created that directory.
+    - Create /var/www
     - Edited cron syntax for duckdns, was not adding it to the crontab prior.
     - Enabled SELinux boolean httpd_setrlimit.
     - Execute duckdns script immediately after install.
