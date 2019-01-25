@@ -26,6 +26,8 @@ You are required to replace the e-mail address (in the letsencrypt class block),
 3. Afterwards, go down to the block that says 'class { ::letsencrypt:', find 'email => redacted,' and replace 'redacted' with 'youremail@domain.com'
 
 #### Install
+On the puppet master:
+
 The module is called web_server, so put the directories in this repository in a modules directory inside of your puppet module path called web_server. For example, /etc/puppetlabs/code/environments/production/modules/web_server. You can find your module path by typing 'puppet config print modulepath'. Then, in your environment manifests directory (e.g /etc/puppetlabs/code/enviroments/production/manifests), edit site.pp and include the following:
 
     resources { 'firewall':
