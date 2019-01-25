@@ -6,9 +6,13 @@ Some things have been removed before uploading, such as my e-mail address.
 
 ### What it configures
 DuckDNS for dynamic DNS configuration.
+
 LetsEncrypt certificate for SSL
+
 Nginx from mainline branch
+
 iptables firewall with ssh, http, https open and to accept established/related connections.
+
 SeLinux context for www root directory.
 
 ### To Do 
