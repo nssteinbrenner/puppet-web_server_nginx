@@ -6,7 +6,7 @@ Some things have been removed before uploading, such as my e-mail address.
 
 ### Usage
 
-You are required to replace the e-mail address and the DNS token in manifests/config.pp in order for it to work. Otherwise, the dynamic DNS script and the LetsEncrypt certificate generation will error out, causing the puppet run to stop.
+You are required to replace the e-mail address and the DNS token in manifests/config.pp in order for it to work. Otherwise, the dynamic DNS script and the LetsEncrypt certificate generation will error out, causing the puppet run to stop. The DNS token can be acquired from duckdns.org.
 
 ### What it configures
 DuckDNS for dynamic DNS configuration.
