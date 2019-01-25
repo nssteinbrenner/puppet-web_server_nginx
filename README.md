@@ -1,10 +1,11 @@
 # puppet-web_server_nginx
 
 Written for Puppet 6.1.0
+Only tested on Centos 7.5
 
 Configures a (very) basic nginx web server with SELinux enabled that displays "Hello World!".
 
-Some things have been removed before uploading, such as my e-mail address.
+Some things have been removed before uploading, such as my e-mail address. As a result, some values need to be changed before being able to use this.
 
 ### Required modules
 puppet-selinux 1.6.1
@@ -43,7 +44,7 @@ You are required to replace the e-mail address (in the letsencrypt class block),
 #### Install
 On the puppet master:
 
-The module is called web_server, so put the directories in this repository in a modules directory inside of your puppet module path called web_server. For example, /etc/puppetlabs/code/environments/production/modules/web_server. You can find your module path by typing 'puppet config print modulepath'. Then, in your environment manifests directory (e.g /etc/puppetlabs/code/enviroments/production/manifests), edit site.pp and include the following:
+The module is called web_server, so put the directories in this repository inside of a directory called "web_server" within your puppet module path. For example, /etc/puppetlabs/code/environments/production/modules/web_server. You can find your module path by typing 'puppet config print modulepath'. Then, in your environment manifests directory (e.g /etc/puppetlabs/code/enviroments/production/manifests), edit site.pp and include the following:
 
     resources { 'firewall':
         purge => true,
@@ -58,13 +59,13 @@ NOTE: If you do not change $webserver_url, $dns_token and the letsencrypt e-mail
 ### What it configures
 DuckDNS for dynamic DNS configuration.
 
-LetsEncrypt certificate for SSL
+LetsEncrypt certificate for SSL.
 
-Nginx from mainline branch
+Nginx from mainline branch.
 
-iptables firewall with ssh, http, https open and to accept established/related connections.
+iptables with ssh, http, https open and to accept established/related connections.
 
-SeLinux context for www root directory.
+SELinux context for www root directory and enables SELinux httpd_setrlimit boolean.
 
 ### To Do 
 The case at the top of install.pp is misleading, while it changes the package manager, I did not prepare this with Debian/Ubuntu in mind at all, and it does not work with apt-get distros. Need to look more into Debian/Ubuntu to see the differences between them and a yum/rpm based distro in terms of package names and configuration.
