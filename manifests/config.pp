@@ -6,7 +6,7 @@ class web_server::config {
   $dns_token      = 'redacted'
 
   class { ::letsencrypt:
-    email          => 'redacted'
+    email          => 'redacted',
     configure_epel => false,
   }
 
