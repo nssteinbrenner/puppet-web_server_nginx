@@ -6,7 +6,7 @@ class web_server::config {
   $dns_token      = 'redacted'
 
   class { ::letsencrypt:
-    email          => 'redacted',
+    email          => 'redacted'
     configure_epel => false,
   }
 
@@ -139,6 +139,7 @@ class web_server::config {
   }
 
   exec { "/opt/puppetlabs/puppet/cache/letsencrypt/renew-${webserver_url}.sh":
+    user   => 'root',
     notify => Service['nginx'],
   }
 
