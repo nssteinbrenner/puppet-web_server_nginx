@@ -23,7 +23,7 @@ You are required to replace the e-mail address (in the letsencrypt class block),
  #### Replacing $dns_token, $webserver_url, and the email in config.pp
 1. Open config.pp in your editor of choice and replace 'sparkswebserver.duckdns.org' with 'yourdomain.duckdns.org' (depending on what domain you have).
 2. Then, replace $dns_token = 'redacted' with $dns_token = 'yourdnstoken'
-3. Afterwards, go down to the block that says class { ::letsencrypt:, find 'email =>' and replace 'redacted' with 'youremail@domain.com'
+3. Afterwards, go down to the block that says 'class { ::letsencrypt:', find 'email =>' and replace 'redacted' with 'youremail@domain.com'
 
 #### Install
 The module is called web_server, so put the directories in this repository in a modules directory inside of your puppet module path called web_server. For example, /etc/puppetlabs/code/environments/production/modules/web_server. You can find your module path by typing 'puppet config print modulepath'. Then, in your environment manifests directory (e.g /etc/puppetlabs/code/enviroments/production/manifests), edit site.pp and include the following:
