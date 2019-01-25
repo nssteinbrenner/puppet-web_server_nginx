@@ -3,9 +3,4 @@ class web_server::service {
     ensure => running,
     enable => true,
   }
-  #class { 'nginx':
-    #manage_repo    => true,
-    # package_source => 'nginx-mainline',
-    #  }
-
 }

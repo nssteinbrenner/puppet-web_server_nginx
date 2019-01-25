@@ -3,8 +3,6 @@ class web_server::config {
   $webserver_user = 'www-data'
   $webserver_root = '/var/www/web_server'
   $webserver_url  = 'sparkswebserver.duckdns.org'
-  $cert_dir       = '/var/lib/puppet/ssl/certs'
-  $key_dir        = '/var/lib/puppet/ssl/private_keys'
   $dns_token      = 'redacted'
 
   class { ::letsencrypt:
@@ -76,14 +74,14 @@ class web_server::config {
     ensure => directory,
     owner  => $webserver_user,
     group  => $webserver_user,
-    mode   => '0555',
+    mode   => '0444',
   }
 
   file { "${webserver_root}/index.html":
     ensure => file,
     owner  => $webserver_user,
     group  => $webserver_user,
-    mode   => '0555',
+    mode   => '0444',
     source => 'puppet:///modules/web_server/index.html',
   }
 
