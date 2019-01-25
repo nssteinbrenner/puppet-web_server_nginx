@@ -6,7 +6,37 @@ Some things have been removed before uploading, such as my e-mail address.
 
 ### Usage
 
-You are required to replace the e-mail address and the DNS token in manifests/config.pp in order for it to work. Otherwise, the dynamic DNS script and the LetsEncrypt certificate generation will error out, causing the puppet run to stop. The DNS token can be acquired from duckdns.org.
+You are required to replace the e-mail address (in the letsencrypt class block), the $dns_token variable, and the $webserver_url variable in manifests/config.pp in order for it to work. Otherwise, the dynamic DNS script and the LetsEncrypt certificate generation will error out, causing the puppet run to stop. $dns_token and $webserver_url must be acquired from duckdns.org
+
+#### How to acquire $webserver_url from duckdns.org
+1. Login with your preferred method of authentication (e.g GitHub)
+ 2. There will be a box on the page that looks like "http://sub domain     .duckdns.org", replace subdomain with your desired name.
+ 3. Your $webserver_url will be nameyouentered.duckdns.org
+ 
+ #### How to acquire $dns_token from duckdns.org
+ 1. After acquiring a $webserver_url and logging in, click "install" at the top.
+ 2. Select "linux cron" if it is not already selected.
+ 3. Underneath "first step - choose a domain.", click on the drop down box and select the domain from earlier.
+ 4. There will be blocks with commands inside, look for the block that starts with 'echo url="https://www.duckdns.org"'
+ 5. In that block, look for "&token". The $dns token will be the character between "&token" and "&ip="
+ 
+ #### Replacing $dns_token, $webserver_url, and the email in config.pp
+1. Open config.pp in your editor of choice and replace 'sparkswebserver.duckdns.org' with 'yourdomain.duckdns.org' (depending on what domain you have).
+2. Then, replace $dns_token = 'redacted' with $dns_token = 'yourdnstoken'
+3. Afterwards, go down to the block that says class { ::letsencrypt:, find 'email =>' and replace 'redacted' with 'youremail@domain.com'
+
+#### Install
+The module is called web_server, so put the directories in this repository in a modules directory inside of your puppet module path called web_server. For example, /etc/puppetlabs/code/environments/production/modules/web_server. You can find your module path by typing 'puppet config print modulepath'. Then, in your environment manifests directory (e.g /etc/puppetlabs/code/enviroments/production/manifests), edit site.pp and include the following:
+
+    resources { 'firewall':
+        purge => true,
+    }
+    node 'yourpuppetnode.puppet.com' {
+        include web_server
+    }
+Replace 'yourpuppetnode.puppet.com' with the node you'd like to run this on.
+
+NOTE: If you do not change $webserver_url, $dns_token and the letsencrypt e-mail, the puppet run will error out due to a failure in configuring dynamic dns and letsencrypt.
 
 ### What it configures
 DuckDNS for dynamic DNS configuration.
