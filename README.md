@@ -4,6 +4,10 @@ Configures a (very) basic nginx web server with SELinux enabled that displays "H
 
 Some things have been removed before uploading, such as my e-mail address.
 
+### Usage
+
+You are required to replace the e-mail address and the DNS token in manifests/config.pp in order for it to work. Otherwise, the dynamic DNS script and the LetsEncrypt certificate generation will error out, causing the puppet run to stop.
+
 ### What it configures
 DuckDNS for dynamic DNS configuration.
 
@@ -32,7 +36,7 @@ puppet-letsencrypt 3.0.0
 stahnma-epel 1.3.1
 
 ### Changelog
-1/25/2019 - Testing was done on a server that had been modified prior and was not a minimal install, and when this was tested on a minimal install it was non-functional. The following changes were made to add functionaly for a minimal Centos 7.5 install, additionally there are some general bug fixes:
+1/25/2019 - Testing was done on a server that had been modified prior and was not a minimal install, and when this was tested on a minimal install it was non-functional. The following changes were made to add functionality for a minimal Centos 7.5 install, additionally there are some general bug fixes:
 
     - (Quality of Life) Install mlocate, vim, and psmisc.
     - Create /var/www
